@@ -41,8 +41,22 @@ in our paper).
 integers. Among those, we obtain candidates that are not covered under the
 three aforementioned items.
 
-After that, results are piped to SageMath for exact computations.
+The code generates two output files `tables.txt` and `output.txt` which provide 
+some data to SageMath for exact computations; see below.
 
 ## SageMath
 
-TODO: Can somebody write this part, as the continuity of the previous part?
+In the parent directory, we have two Jupyter notebooks running SageMath which refer to
+the output of the Rust program. The proof of Lemma 3.11 in the paper is logically dependent
+on the correctness of both the Rust and SageMath code.
+
+In `floating-point.ipynb`, we verify that the floating-point sines and cosines used in 
+the Rust code are each valid to within 10^-14. This data is read in from the file `tables.txt`, 
+each line of which has the form `N j c s` where `c` and `s` are the Rust approximations of 
+the cosine and sine of $2\pi j/N$.
+
+In `check-table-ipynb`, we verify that each cyclotomic integer output by the Rust code
+is consistent with Theorem 1.2; that is, either its castle is greater than 5.1, it belongs to
+one of the infinite families (1), (2), (3) of Theorem 1.1, or it is equivalent to an entry of
+Table 1. This data is read in from the file `output.txt`, each line of which has the form 
+`N; [j_1, ..., j_n]` representing $\sum_{i=1}^n e^{2 \pi j_i/N}$.
